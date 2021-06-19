@@ -1,5 +1,15 @@
 @extends('layouts.base')
 
+@section('baseStyles')
+    <!-- Styles -->
+    <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+@endsection
+
+@section('baseScripts')
+    <script src="{{ asset('js/backend.js') }}"></script>
+    @stack('scripts')
+@endsection
+
 @section('body')
    <div class="container-fluid py-3">
         <div class="row">
