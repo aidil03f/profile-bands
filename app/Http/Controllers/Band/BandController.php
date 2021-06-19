@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class BandController extends Controller
 {
+    public function table()
+    {
+        return view('bands.table',[
+            'bands' => Band::latest()->paginate(1),
+        ]);
+    }
+
     public function create()
     {
         return view('bands.create',[
