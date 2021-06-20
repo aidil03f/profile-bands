@@ -18,8 +18,8 @@
                            <td>{{ $genre->name }}</td>
                            <td>{{ 0 }}</td>
                            <td>
-                               <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                               {{-- <div endpoint="{{ route('albums.delete', $album) }}" class="delete d-inline"></div> --}}
+                               <a href="{{ route('genres.edit', $genre) }}" class="btn btn-primary btn-sm">Edit</a>
+                               <div endpoint="{{ route('genres.delete', $genre) }}" class="delete d-inline"></div>
                            </td>
                        </tr>
                    @endforeach

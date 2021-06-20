@@ -29,8 +29,31 @@ class GenreController extends Controller
     public function table()
     {
         return view('genres.table',[
-            'genres' => Genre::paginate(16),
+            'genres' => Genre::latest()->paginate(16),
             'title'  => 'All Music Genres'
         ]);
+    }
+
+    public function edit(Genre $genre)
+    {
+        return view('genres.edit',[
+            'title' => "Edit genre: {$genre->name}",
+            'genre' => $genre,
+        ]);
+    }
+
+    public function update(Genre $genre, GenreRequest $request)
+    {
+        $genre->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+        ]);
+ 
+        return redirect()->route('genres.table')->with('success','The genre was updated');
+    }
+
+    public function destroy(Genre $genre)
+    {
+        $genre->delete();
     }
 }
