@@ -7,6 +7,7 @@ use App\Models\Band;
 use App\Models\Genre;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BandController extends Controller
 {
@@ -27,7 +28,7 @@ class BandController extends Controller
     public function store()
     {
        request()->validate([
-           'name' => 'required',
+           'name' => 'required|unique:bands,name',
            'thumbnail'=> request('thumbnail') ? 'image|mimes:jpeg,png,gif' : '',
            'genres' => 'required|array'
        ]);
@@ -35,9 +36,43 @@ class BandController extends Controller
        $band = Band::create([
            'name' => request('name'),
            'slug' => Str::slug(request('name')),
-           'thumbnail' => request()->file('thumbnail')->store('images/band'),
+           'thumbnail' => request('thumbnail') ? request()->file('thumbnail')->store('images/band') : null,
        ]);
        $band->genres()->sync(request('genres'));
        return back()->with('success','Band was created');
+    }
+
+    public function edit(Band $band)
+    {
+        return view('bands.edit',[
+            'band' => $band,
+            'genres'=> Genre::get(),
+        ]);
+    }
+
+    public function update(Band $band)
+    {
+       request()->validate([
+           'name' => 'required|unique:bands,name,' . $band->id,
+           'thumbnail'=> request('thumbnail') ? 'image|mimes:jpeg,png,gif' : '',
+           'genres' => 'required|array'
+       ]);
+
+       if(request('thumbnail')){
+           Storage::delete($band->thumbnail);
+           $thumbnail = request()->file('thumbnail')->store('images/band');
+       } elseif($band->thumbnail){
+           $thumbnail = $band->thumbnail;
+       } else {
+           $thumbnail = null;
+       }
+
+       $band->update([
+           'name' => request('name'),
+           'slug' => Str::slug(request('name')),
+           'thumbnail' => $thumbnail,
+       ]);
+       $band->genres()->sync(request('genres'));
+       return back()->with('success','Band was updated');
     }
 }
