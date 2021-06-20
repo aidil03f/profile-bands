@@ -31,7 +31,7 @@ class AlbumController extends Controller
             'year' => request('year'),
         ]);
 
-        return back()->with('status','Album was created into ' . $band->name);
+        return back()->with('success','Album was created into ' . $band->name);
     }
 
     public function table()
@@ -61,7 +61,7 @@ class AlbumController extends Controller
             'year' => request('year'),
         ]);
 
-        return redirect()->route('albums.table')->with('status','Album was updated');
+        return redirect()->route('albums.table')->with('success','Album was updated');
     }
 
     public function destroy(Album $album)

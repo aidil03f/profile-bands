@@ -23,7 +23,7 @@
 <div class="mb-4">
     <small class="text-secondary d-block mb-2">Genre</small>
     <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">Create</a>
-        <a href="#" class="list-group-item list-group-item-action">Table</a>
+        <a href="{{ route('genres.create') }}" class="list-group-item list-group-item-action">Create</a>
+        <a href="{{ route('genres.table') }}" class="list-group-item list-group-item-action">Table</a>
     </div>
 </div>

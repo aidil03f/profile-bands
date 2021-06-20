@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Band\AlbumController;
 use App\Http\Controllers\Band\BandController;
+use App\Http\Controllers\Band\GenreController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\{Route,Auth};
@@ -30,5 +31,11 @@ Route::middleware('auth')->group(function(){
         Route::get('{album:slug}/edit',[AlbumController::class,'edit'])->name('albums.edit');
         Route::put('{album:slug}/edit',[AlbumController::class,'update']);
         Route::delete('{album:slug}/delete',[AlbumController::class,'destroy'])->name('albums.delete');
+    });
+
+    Route::prefix('genres')->group(function(){
+        Route::get('create',[GenreController::class,'create'])->name('genres.create');
+        Route::post('create',[GenreController::class,'store']);
+        Route::get('table',[GenreController::class,'table'])->name('genres.table');
     });
 });

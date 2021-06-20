@@ -12,20 +12,20 @@
                    <th>Action</th>
                </thead>
                <tbody>
-                   @foreach ($albums as $album)
+                   @foreach ($genres as $genre)
                        <tr>
-                        <td>{{ $albums->count() * ($albums->currentpage() - 1) + $loop->iteration }}</td>
-                           <td>{{ $album->name }}</td>
-                           <td>{{ $album->band->name }}</td>
+                        <td>{{ $genres->count() * ($genres->currentpage() - 1) + $loop->iteration }}</td>
+                           <td>{{ $genre->name }}</td>
+                           <td>{{ 0 }}</td>
                            <td>
-                               <a href="{{ route('albums.edit', $album->slug) }}" class="btn btn-primary btn-sm">Edit</a>
-                               <div endpoint="{{ route('albums.delete', $album) }}" class="delete d-inline"></div>
+                               <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                               {{-- <div endpoint="{{ route('albums.delete', $album) }}" class="delete d-inline"></div> --}}
                            </td>
                        </tr>
                    @endforeach
                </tbody>
            </table>
-           {{ $albums->links() }}
+           {{ $genres->links() }}
         </div>
     </div>
 @endsection
