@@ -29,5 +29,6 @@ Route::middleware('auth')->group(function(){
         Route::get('table',[AlbumController::class,'table'])->name('albums.table');
         Route::get('{album:slug}/edit',[AlbumController::class,'edit'])->name('albums.edit');
         Route::put('{album:slug}/edit',[AlbumController::class,'update']);
+        Route::delete('{album:slug}/delete',[AlbumController::class,'destroy'])->name('albums.delete');
     });
 });
