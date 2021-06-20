@@ -14,7 +14,7 @@ class BandController extends Controller
     public function table()
     {
         return view('bands.table',[
-            'bands' => Band::latest()->paginate(1),
+            'bands' => Band::latest()->paginate(5),
         ]);
     }
 
@@ -74,5 +74,12 @@ class BandController extends Controller
        ]);
        $band->genres()->sync(request('genres'));
        return back()->with('success','Band was updated');
+    }
+
+    public function destroy(Band $band)
+    {
+        Storage::delete($band->thumbnail);
+        $band->genres()->detach();
+        $band->delete();
     }
 }
