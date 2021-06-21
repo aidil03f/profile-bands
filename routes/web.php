@@ -3,6 +3,7 @@
 use App\Http\Controllers\Band\AlbumController;
 use App\Http\Controllers\Band\BandController;
 use App\Http\Controllers\Band\GenreController;
+use App\Http\Controllers\Band\LyricController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\{Route,Auth};
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function(){
         Route::get('{album:slug}/edit',[AlbumController::class,'edit'])->name('albums.edit');
         Route::put('{album:slug}/edit',[AlbumController::class,'update']);
         Route::delete('{album:slug}/delete',[AlbumController::class,'destroy'])->name('albums.delete');
+        Route::get('/get-album-by-{band}',[AlbumController::class,'getAlbumByBandId']);
     });
 
     Route::prefix('genres')->group(function(){
@@ -40,5 +42,11 @@ Route::middleware('auth')->group(function(){
         Route::get('{genre:slug}/edit',[GenreController::class,'edit'])->name('genres.edit');
         Route::put('{genre:slug}/edit',[GenreController::class,'update']);
         Route::delete('{genre:slug}/delete',[GenreController::class,'destroy'])->name('genres.delete');
+    });
+
+    Route::prefix('lyrics')->group(function(){
+        Route::get('create',[LyricController::class,'create'])->name('lyrics.create');
+        Route::post('create',[LyricController::class,'store']);
+        Route::get('table',[LyricController::class,'table'])->name('lyrics.table');
     });
 });
