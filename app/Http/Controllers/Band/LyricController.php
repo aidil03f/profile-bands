@@ -49,13 +49,13 @@ class LyricController extends Controller
         $bandId = request('band_id');
         $albumId = request('album_id');
         if($bandId && !$albumId){
-            $lyrics = Lyric::where('band_id',$bandId)->latest()->get();
+            $lyrics = Lyric::with('band', 'album')->where('band_id',$bandId)->latest()->get();
         }elseif($bandId && $albumId){
-            $lyrics = Lyric::where('band_id',$bandId)
+            $lyrics = Lyric::with('band', 'album')->where('band_id',$bandId)
                             ->where('album_id',$albumId)
                             ->latest()->get();
         }else{
-            $lyrics = Lyric::latest()->paginate(3);
+            $lyrics = Lyric::with('band', 'album')->latest()->paginate(3);
         }
 
         return LyricResource::collection($lyrics);

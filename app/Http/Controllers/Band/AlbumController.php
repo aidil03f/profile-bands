@@ -37,7 +37,7 @@ class AlbumController extends Controller
     public function table()
     {
         return view('albums.table',[
-            'albums' => Album::paginate(10),
+            'albums' => Album::with('band')->paginate(10),
             'title' => 'Albums',
         ]);
     }
