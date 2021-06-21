@@ -1978,6 +1978,11 @@ function Create(props) {
       body = _useState14[0],
       setBody = _useState14[1];
 
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+      _useState16 = _slicedToArray(_useState15, 2),
+      errors = _useState16[0],
+      setErrors = _useState16[1];
+
   var request = {
     band: bandId,
     album: albumId,
@@ -2055,20 +2060,25 @@ function Create(props) {
             case 4:
               response = _context3.sent;
               setMessage(response.data.message);
-              _context3.next = 11;
+              setErrors([]);
+              setAlbumId('');
+              setBandId('');
+              setTitle('');
+              setBody('');
+              _context3.next = 16;
               break;
 
-            case 8:
-              _context3.prev = 8;
+            case 13:
+              _context3.prev = 13;
               _context3.t0 = _context3["catch"](1);
-              console.log(_context3.t0.message);
+              setErrors(_context3.t0.response.data.errors);
 
-            case 11:
+            case 16:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 8]]);
+      }, _callee3, null, [[1, 13]]);
     }));
 
     return function store(_x2) {
@@ -2099,6 +2109,7 @@ function Create(props) {
               htmlFor: "band",
               children: "Band"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+              value: bandId,
               onChange: getAlbumBySelectedBand,
               name: "band",
               id: "band",
@@ -2112,13 +2123,17 @@ function Create(props) {
                   children: band.name
                 }, band.id);
               })]
-            })]
+            }), errors.band ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "text-danger mt-2",
+              children: errors.band[0]
+            }) : '']
           }), albums.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "form-group",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
               htmlFor: "album",
               children: "Album"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+              value: albumId,
               onChange: function onChange(e) {
                 return setAlbumId(e.target.value);
               },
@@ -2134,7 +2149,10 @@ function Create(props) {
                   children: album.name
                 }, album.id);
               })]
-            })]
+            }), errors.album ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "text-danger mt-2",
+              children: errors.album[0]
+            }) : '']
           }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "form-group",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
@@ -2149,7 +2167,10 @@ function Create(props) {
               name: "title",
               id: "title",
               className: "form-control"
-            })]
+            }), errors.title ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "text-danger mt-2",
+              children: errors.title[0]
+            }) : '']
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "form-group",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
@@ -2164,7 +2185,10 @@ function Create(props) {
               name: "body",
               id: "body",
               className: "form-control"
-            })]
+            }), errors.body ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "text-danger mt-2",
+              children: errors.body[0]
+            }) : '']
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
             type: "submit",
             className: "btn btn-primary",
