@@ -11,6 +11,11 @@ class Band extends Model
 
     protected $guarded = [];
 
+    public function getPictureAttribute()
+    {
+        return asset("storage/" . $this->thumbnail);
+    }
+
     public function albums()
     {
         return $this->hasMany(Album::class);
@@ -24,5 +29,10 @@ class Band extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class);
+    }
+
+    public function album()
+    {
+        return $this->hasOne(Album::class)->latest();
     }
 }

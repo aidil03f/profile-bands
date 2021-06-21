@@ -1,4 +1,5 @@
 <div class="list-group mb-5">
+    <a href="/" class="list-group-item list-group-item-action">Home</a>
     <a href="/dashboard" class="list-group-item list-group-item-action">Dashboard</a>
 </div>
 

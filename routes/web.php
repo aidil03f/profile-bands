@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function(){
         Route::get('create',[BandController::class,'create'])->name('bands.create');
         Route::post('create',[BandController::class,'store']);
         Route::get('table',[BandController::class,'table'])->name('bands.table');
+        Route::get('{band:slug}',[BandController::class,'show'])->name('bands.show')->withoutMiddleware('auth');
         Route::get('{band:slug}/edit',[BandController::class,'edit'])->name('bands.edit');
         Route::put('{band:slug}/edit',[BandController::class,'update']);
         Route::delete('{band:slug}/delete',[BandController::class,'destroy'])->name('bands.delete');

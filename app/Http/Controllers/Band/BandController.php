@@ -21,6 +21,15 @@ class BandController extends Controller
         ]);
     }
 
+    public function show(Band $band)
+    {
+        return view('bands.show',[
+            'band' => $band,
+            'title' => $band->name,
+            'albums' => $band->albums()->withCount('lyrics')->with('lyrics')->latest()->get(),
+        ]);
+    }
+
     public function create()
     {
         return view('bands.create',[
