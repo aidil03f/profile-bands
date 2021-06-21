@@ -15,7 +15,7 @@ class CreateLyricsTable extends Migration
     {
         Schema::create('lyrics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ambum_id');
+            $table->foreignId('album_id');
             $table->string('title');
             $table->string('slug');
             $table->text('body');
