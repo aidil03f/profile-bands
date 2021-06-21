@@ -60,4 +60,37 @@ class LyricController extends Controller
 
         return LyricResource::collection($lyrics);
     }
+
+    public function show(Lyric $lyric)
+    {
+        return $lyric;
+    }
+
+    public function edit(Lyric $lyric)
+    {
+        return view('lyrics.edit', [
+            'title' => "Edit lyric: {$lyric->title}",
+            'lyric' => $lyric,
+        ]);
+    }
+
+    public function update(Lyric $lyric)
+    {
+        request()->validate([
+            'album' => 'required',
+            'band' => 'required',
+            'body' => 'required',
+            'title' => 'required',
+        ]);
+        $band = Band::find(request('band'));
+
+        $lyric->update([
+            'band_id' => request('band'),
+            'title' => request('title'),
+            'slug' => Str::slug(request('title')),
+            'body' => request('body'),
+            'album_id' => request('album'),
+        ]);
+        return response()->json(['message' => 'The lyrics was updated into band ' . $band->name]);
+    }
 }

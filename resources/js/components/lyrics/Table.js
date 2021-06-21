@@ -82,7 +82,9 @@ function DataTable(props) {
                                             <td>{lyric.title}</td>
                                             <td>{lyric.band}</td>
                                             <td>{lyric.album}</td>
-                                            <td>Edit</td>
+                                            <td>
+                                                <a href={`/lyrics/${lyric.slug}/edit`}>Edit</a>
+                                            </td>
                                         </tr>
                                     )
                                 })
