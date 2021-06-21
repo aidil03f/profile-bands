@@ -48,5 +48,6 @@ Route::middleware('auth')->group(function(){
         Route::get('create',[LyricController::class,'create'])->name('lyrics.create');
         Route::post('create',[LyricController::class,'store']);
         Route::get('table',[LyricController::class,'table'])->name('lyrics.table');
+        Route::get('data-table',[LyricController::class,'dataTable'])->name('lyrics.datatable');
     });
 });

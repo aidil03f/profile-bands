@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Band;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LyricResource;
 use App\Models\Band;
+use App\Models\Lyric;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -33,5 +35,18 @@ class LyricController extends Controller
             'album_id' => request('album'),
         ]);
         return response()->json(['message' => 'The lyrics was created into band ' . $band->name]);
+    }
+
+    public function table()
+    {
+        return view('lyrics.table',[
+            'title' => 'Lyrics'
+        ]);
+    }
+
+    public function dataTable()
+    {
+        $lyrics = Lyric::latest()->paginate(2);
+        return LyricResource::collection($lyrics);
     }
 }
