@@ -5,18 +5,20 @@ import ReactDOM from 'react-dom';
 function DataTable(props) {
     const [lyrics, setLyrics] = useState([])
     const [url, setUrl] = useState(props.endpoint)
+    const [links, setLinks] = useState([])
 
     const getLyrics = async () => {
         try {
             let response = await axios.get(url);
             setLyrics(response.data.data);
+            setLinks(response.data.meta.links);
         } catch (e){
             console.log(e.message);
         }
     }
     useEffect(() => {
         getLyrics()
-    }, [])
+    }, [ url ])
     return (
         <div className="card">
             <div className="card-header">
@@ -47,6 +49,19 @@ function DataTable(props) {
                         }
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination">
+                        {
+                            links.map((link, index) => {
+                                return (
+                                    <li className={`page-item ${link.active && 'active'}`} key={index}>
+                                        <button onClick={(e) => setUrl(link.url)} className="page-link">{link.label}</button>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </nav>
             </div>
         </div>
     );
