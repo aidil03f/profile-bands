@@ -34,6 +34,15 @@ class GenreController extends Controller
         ]);
     }
 
+    public function show(Genre $genre)
+    {
+        return view('genres.show',[
+            'title' => "{$genre->name}",
+            'genre' => $genre,
+            'bands' => $genre->bands()->latest()->paginate(16),
+        ]);
+    }
+
     public function edit(Genre $genre)
     {
         return view('genres.edit',[

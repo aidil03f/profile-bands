@@ -4,6 +4,7 @@ use App\Http\Controllers\Band\AlbumController;
 use App\Http\Controllers\Band\BandController;
 use App\Http\Controllers\Band\GenreController;
 use App\Http\Controllers\Band\LyricController;
+use App\Http\Controllers\Band\SearchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\{Route,Auth};
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\{Route,Auth};
 Auth::routes();
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('search', SearchController::class);
 
 Route::middleware('auth')->group(function(){
     Route::get('dasboard', DashboardController::class)->name('dashboard');
@@ -40,6 +42,7 @@ Route::middleware('auth')->group(function(){
         Route::get('create',[GenreController::class,'create'])->name('genres.create');
         Route::post('create',[GenreController::class,'store']);
         Route::get('table',[GenreController::class,'table'])->name('genres.table');
+        Route::get('{genre:slug}',[GenreController::class,'show'])->name('genres.show')->withoutMiddleware('auth');
         Route::get('{genre:slug}/edit',[GenreController::class,'edit'])->name('genres.edit');
         Route::put('{genre:slug}/edit',[GenreController::class,'update']);
         Route::delete('{genre:slug}/delete',[GenreController::class,'destroy'])->name('genres.delete');
@@ -50,10 +53,11 @@ Route::middleware('auth')->group(function(){
         Route::post('create',[LyricController::class,'store']);
         Route::get('table',[LyricController::class,'table'])->name('lyrics.table');
         Route::get('data-table',[LyricController::class,'dataTable'])->name('lyrics.datatable');
-        Route::get('{lyric:slug}', [LyricController::class,'show'])->name('lyrics.show');
         Route::get('{lyric:slug}/edit', [LyricController::class,'edit']);
         Route::put('{lyric:slug}', [LyricController::class,'update']);
         Route::delete('{lyric:slug}/delete', [LyricController::class,'destroy']);
        
     });
 });
+
+Route::get('{band:slug}/{lyric:slug}', [LyricController::class,'show'])->name('lyrics.show');

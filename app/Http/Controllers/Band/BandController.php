@@ -26,7 +26,7 @@ class BandController extends Controller
         return view('bands.show',[
             'band' => $band,
             'title' => $band->name,
-            'albums' => $band->albums()->withCount('lyrics')->with('lyrics')->latest()->get(),
+            'albums' => $band->albums()->withCount('lyrics')->with('lyrics','lyrics.band')->latest()->get(),
         ]);
     }
 

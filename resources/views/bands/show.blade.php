@@ -8,7 +8,7 @@
 
         <div class="mb-4">
             @foreach ($band->genres as $genre)
-                <a href="#" class="text-secondary">{{ $genre->name }}</a>
+                <a href="{{ route('genres.show', $genre) }}" class="text-secondary">{{ $genre->name }}</a>
             @endforeach
         </div>
 
@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-body">
                     @foreach ($album->lyrics as $lyric)
-                        <a href="#" class="d-block">{{ $lyric->title }}</a>
+                        <a href="{{ route('lyrics.show', [$lyric->band, $lyric]) }}" class="d-block">{{ $lyric->title }}</a>
                     @endforeach
                     </div>
                 </div>
